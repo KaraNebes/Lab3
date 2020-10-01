@@ -36,6 +36,7 @@ namespace Lab3
         }
         static void InputCheck(double x1, double x2, double alfa)
         {
+            
             if ( x2 == x1 || alfa==0 || (x2 < x1 && alfa > 0) ||(x2 > x1 && alfa < 0))
             {
                 Console.WriteLine("Одна ошибка и ты ошибся");
@@ -98,6 +99,15 @@ namespace Lab3
             PrintNTimes(' ', n / 2);
             Console.Write("|");
         }
+        static void DrawingHat (char c, int maxlength)
+        {
+            if (maxlength % 2 != 0)
+                Console.Write(' ');
+            PrintNTimes(' ', maxlength / 2 - 1);
+            Console.Write(c);
+            PrintNTimes(' ', maxlength / 2 - 1);
+            Console.Write(" |");
+        }
         static void DrawingTable(List<double> allx, List<double> ally, int maxlength)
         {
             Console.Write("|");
@@ -108,18 +118,9 @@ namespace Lab3
             }
             Console.WriteLine();
             Console.Write("|");
-            if (maxlength % 2 != 0)
-                Console.Write(' ');
-            PrintNTimes(' ', maxlength / 2-1);
-            Console.Write('x');
-            PrintNTimes(' ', maxlength / 2-1);
-            Console.Write(" | ");
-            if (maxlength % 2 != 0)
-                Console.Write(' ');
-            PrintNTimes(' ', maxlength / 2-1);
-            Console.Write('y');
-            PrintNTimes(' ', maxlength / 2-1);
-            Console.WriteLine("|");
+            DrawingHat('x', maxlength);
+            DrawingHat('y', maxlength);
+            Console.WriteLine();
             for (int i = 0; i < 2 * maxlength+3; i++)
             {
                 Console.Write('-');
