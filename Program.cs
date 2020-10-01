@@ -12,12 +12,11 @@ namespace Lab3
             List<double> allx = new List<double>();
             List<double> ally = new List<double>();
             Read(out alfa, out x1, out x2);
+            InputCheck(x1, x2, alfa);
             allx = CreatingAnXArray(alfa, x1, x2);
             ally = CreatingAnYArray(allx);
             int maxlengthx = FindingMaxLength(allx);
-            Console.WriteLine(maxlengthx);
             int maxlengthy = FindingMaxLength(ally);
-            Console.WriteLine(maxlengthy);
             if (maxlengthx > maxlengthy)
                 maxlength = maxlengthx;
             else
@@ -25,16 +24,24 @@ namespace Lab3
             Console.WriteLine(maxlength);
             DrawingTable(allx, ally, maxlength);
             Console.ReadKey();
-            //Math.Round(ally[i],3);
         }
         static void Read(out double alfa, out double x1, out double x2)
         {
             Console.WriteLine("Введите начальную координату");
-            x1 = Convert.ToDouble(Console.ReadLine());
+            x1 = Convert.ToDouble(Console.ReadLine().Replace('.', ','));
             Console.WriteLine("Введите конечную координату");
-            x2 = Convert.ToDouble(Console.ReadLine());
+            x2 = Convert.ToDouble(Console.ReadLine().Replace('.', ','));
             Console.WriteLine("Введите альфу");
-            alfa = Convert.ToDouble(Console.ReadLine());
+            alfa = Convert.ToDouble(Console.ReadLine().Replace('.', ','));
+        }
+        static void InputCheck(double x1, double x2, double alfa)
+        {
+            if ( x2 == x1 || alfa==0 || (x2 < x1 && alfa > 0) ||(x2 > x1 && alfa < 0))
+            {
+                Console.WriteLine("Одна ошибка и ты ошибся");
+                Console.ReadKey();
+                Environment.Exit(0);
+            }
         }
         static List<double> CreatingAnXArray(double alfa, double x1, double x2)
         {
@@ -60,43 +67,15 @@ namespace Lab3
         static int FindingMaxLength(List<double> all)
         {
             int length = 0, maxlength = 0;
+            string str=" ";
             for (int i = 0; i < all.Count; i++)
             {
-                length = FindingLength(all[i]);
-                if (length >= maxlength)
+                str = Convert.ToString(all[i]);
+                length = str.Length;
+                if (length > maxlength)
                     maxlength = length;
             }
-            maxlength++;
             return maxlength;
-        }
-        static int FindingLength(double x)
-        {
-            int length = 0;
-            if (x < 0)
-                length++;
-            int digitlength = GetWholeDigitCount(x);
-            int fractionaldigitlength = GetFractionalDigitCount(x);
-            length += digitlength + fractionaldigitlength;
-            return length;
-        }
-        static int GetWholeDigitCount(double x)
-        {
-            int count = 1;
-            x = Math.Abs(x);
-            while ((x /= 10) >= 1)
-                ++count;
-            return count;
-        }
-        static int GetFractionalDigitCount(double x)
-        {
-            x = Math.Abs(x);
-            int count = 0;
-            while (x % 1 != 0)
-            {
-                ++count;
-                x *= 10;
-            }
-            return count;
         }
         static void PrintNTimes(char a, int n)
         {
@@ -105,13 +84,13 @@ namespace Lab3
                 Console.Write(a);
             }
         }
-
         static void DrawingCell(double x, int maxlength)
         {
-            int n = maxlength - FindingLength(x);
+            string str = Convert.ToString(x);
+            int length = str.Length;
+            int n = maxlength - length;
             PrintNTimes(' ', n / 2);
-            if (FindingLength(x) % 2 != 0)
-                PrintNTimes(' ', 1);
+            
             Console.Write(x);
             PrintNTimes(' ', n / 2);
             Console.Write("|");
@@ -121,20 +100,24 @@ namespace Lab3
             Console.Write("|");
             for (int i = 0; i < 2; i++)
             {
-                PrintNTimes('-', maxlength+1);
+                PrintNTimes('-', maxlength);
                 Console.Write("|");
             }
             Console.WriteLine();
             Console.Write("|");
-            PrintNTimes(' ', maxlength / 2);
+            if (maxlength % 2 != 0)
+                Console.Write(' ');
+            PrintNTimes(' ', maxlength / 2-1);
             Console.Write('x');
-            PrintNTimes(' ', maxlength / 2);
+            PrintNTimes(' ', maxlength / 2-1);
             Console.Write(" | ");
-            PrintNTimes(' ', maxlength / 2);
+            if (maxlength % 2 != 0)
+                Console.Write(' ');
+            PrintNTimes(' ', maxlength / 2-1);
             Console.Write('y');
-            PrintNTimes(' ', maxlength / 2);
+            PrintNTimes(' ', maxlength / 2-1);
             Console.WriteLine("|");
-            for (int i = 0; i < 2 * maxlength+5; i++)
+            for (int i = 0; i < 2 * maxlength+3; i++)
             {
                 Console.Write('-');
             }
