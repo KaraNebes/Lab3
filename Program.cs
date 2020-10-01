@@ -90,7 +90,10 @@ namespace Lab3
             int length = str.Length;
             int n = maxlength - length;
             PrintNTimes(' ', n / 2);
-            
+            if (maxlength  % 2 == 0 && length % 2 != 0)
+                Console.Write(" ");
+            else if (maxlength % 2 != 0 && length % 2 == 0)
+                Console.Write(" ");
             Console.Write(x);
             PrintNTimes(' ', n / 2);
             Console.Write("|");
