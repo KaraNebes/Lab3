@@ -21,17 +21,17 @@ namespace Lab3
                 maxlength = maxlengthx;
             else
                 maxlength = maxlengthy;
-            Console.WriteLine(maxlength);
+            Console.Clear();
             DrawingTable(allx, ally, maxlength);
             Console.ReadKey();
         }
         static void Read(out double alfa, out double x1, out double x2)
         {
-            Console.WriteLine("Введите начальную координату");
+            Console.WriteLine("Введите начальную координату x для функции y=Sin(x)");
             x1 = Convert.ToDouble(Console.ReadLine().Replace('.', ','));
-            Console.WriteLine("Введите конечную координату");
+            Console.WriteLine("Введите конечную координату x");
             x2 = Convert.ToDouble(Console.ReadLine().Replace('.', ','));
-            Console.WriteLine("Введите альфу");
+            Console.WriteLine("Введите шаг");
             alfa = Convert.ToDouble(Console.ReadLine().Replace('.', ','));
         }
         static void InputCheck(double x1, double x2, double alfa)
